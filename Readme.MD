@@ -35,6 +35,29 @@ SOURCE scripts/db_setup.sql;
 go run server/main.go
 
 ```
+## DB Schema
+
+### Users Table
+
+| Column Name | Data Type      | Constraints                    |
+|-------------|----------------|--------------------------------|
+| `id`        | `INT`          | `PRIMARY KEY`, `AUTO_INCREMENT` |
+| `name`      | `VARCHAR(255)` | `NOT NULL`                      |
+
+### Follows Table
+
+| Column Name  | Data Type | Constraints                                             |
+|--------------|-----------|---------------------------------------------------------|
+| `follower_id`| `INT`     | `FOREIGN KEY` (references `Users(id)` `ON DELETE CASCADE`), `PRIMARY KEY` |
+| `following_id`| `INT`    | `FOREIGN KEY` (references `Users(id)` `ON DELETE CASCADE`), `PRIMARY KEY` |
+
+## Relationships
+```
+   (1)----< (Follows) >----(M)
+   Users                      Users
+
+```
+
 
 ## Sample GraphQL Queries and Mutations
 
