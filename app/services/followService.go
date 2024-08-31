@@ -7,6 +7,14 @@ import (
 )
 
 func FollowUser(followerID, followingID string) error {
+
+    if !database.UserExists(followerID) {
+        return errors.New("follower user does not exist")
+    }
+    if !database.UserExists(followingID) {
+        return errors.New("following user does not exist")
+    }
+    
     if followerID == followingID {
         return errors.New("cannot follow yourself")
     }
