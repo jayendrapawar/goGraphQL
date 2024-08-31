@@ -10,9 +10,10 @@ This service allows users to follow and unfollow each other. The service is expo
 
 ## Setup
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/jayendrapawar/goGraphQL
-   cd goGraphQL
+```
+git clone https://github.com/jayendrapawar/goGraphQL
+cd goGraphQL
+```
 
 2. DB Setup
 ```
@@ -34,4 +35,38 @@ export DB_NAME=graphql
 ```
 go run server/main.go
 
+```
+
+## Sample GraphQL Queries and Mutations
+1. Follow a user:
+```
+mutation {
+  follow(follower_id: "1", following_id: "2")
+}
+```
+1. Unfollow a user:
+```
+mutation {
+  unfollow(follower_id: "1", following_id: "2")
+}
+```
+
+2. List followers
+```
+query {
+  followers(user_id: "2") {
+    id
+    name
+  }
+}
+```
+
+3. List following
+```
+query {
+  following(user_id: "1") {
+    id
+    name
+  }
+}
 ```
