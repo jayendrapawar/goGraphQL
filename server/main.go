@@ -1,8 +1,8 @@
 package main
 
 import (
-	"graphQL-go/service/database"
-	"graphQL-go/service/graphql"
+	"graphQL-go/app/database"
+	"graphQL-go/app/graphql"
 	"log"
 	"net/http"
 
@@ -10,20 +10,23 @@ import (
 )
 
 func main() {
-    // Database connection
+    // Initialize the database connection
     _, err := database.Connect()
     if err != nil {
         log.Fatal("Failed to connect to the database:", err)
     }
 
+    // Setup GraphQL schema
     schema := graphql.NewSchema()
 
+    // Create a new GraphQL HTTP handler
     h := handler.New(&handler.Config{
         Schema:   &schema,
         Pretty:   true,
         GraphiQL: true,
     })
 
+    // Serve the GraphQL endpoint
     http.Handle("/graphql", h)
 
     log.Println("Server is running on port 8080...")

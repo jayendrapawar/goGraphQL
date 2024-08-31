@@ -1,11 +1,12 @@
 package config
 
-import "os"
+import (
+    "os"
+)
 
-func GetEnv(key, defaultValue string) string {
-    value := os.Getenv(key)
-    if value == "" {
-        return defaultValue
+func GetEnv(key string, defaultValue string) string {
+    if value, exists := os.LookupEnv(key); exists {
+        return value
     }
-    return value
+    return defaultValue
 }

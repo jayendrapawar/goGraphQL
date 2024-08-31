@@ -9,3 +9,21 @@ func IsAlreadyFollowing(followerID, followingID string) bool {
         Count(&count)
     return count > 0
 }
+
+func ListFollowers(userID string) ([]models.User, error) {
+    var users []models.User
+    DB.Table("users").
+        Joins("JOIN follows ON users.id = follows.follower_id").
+        Where("follows.following_id = ?", userID).
+        Scan(&users)
+    return users, nil
+}
+
+func ListFollowing(userID string) ([]models.User, error) {
+    var users []models.User
+    DB.Table("users").
+        Joins("JOIN follows ON users.id = follows.following_id").
+        Where("follows.follower_id = ?", userID).
+        Scan(&users)
+    return users, nil
+}
